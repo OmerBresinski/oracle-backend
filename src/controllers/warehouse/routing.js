@@ -1,12 +1,12 @@
 import express from "express";
-import { Storage } from "../../services/index.js";
+import { Warehouse } from "../../services/index.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const storage = new Storage(req.db);
-        const storageItems = await storage.get();
-        res.send(storageItems);
+        const warehouse = new Warehouse(req.db);
+        const warehouseData = await warehouse.get();
+        res.send(warehouseData);
     } catch (ex) {
         res.status(400).json(ex.message);
     }

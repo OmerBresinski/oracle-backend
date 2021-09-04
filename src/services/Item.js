@@ -6,7 +6,7 @@ export default class Item {
     }
 
     get = async () => {
-        const items = await this.db.execute("SELECT * FROM items");
+        const items = await this.db.execute("SELECT * FROM item");
         return items;
     };
 }

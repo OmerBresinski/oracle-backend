@@ -1,5 +1,10 @@
 export { default as items } from "./items/routing.js";
-export { default as storage } from "./storage/routing.js";
+export { default as orders } from "./orders/routing.js";
+export { default as receipt } from "./receipts/routing.js";
+export { default as warehouse } from "./warehouse/routing.js";
+export { default as orderItems } from "./orderItems/routing.js";
 export { default as inventory } from "./inventory/routing.js";
 export { default as customers } from "./customers/routing.js";
+export { default as receiptItems } from "./receiptItems/routing.js";
 export { default as transactions } from "./transactions/routing.js";
+export { default as inventoryInsufficiency } from "./inventoryInsufficiency/routing.js";

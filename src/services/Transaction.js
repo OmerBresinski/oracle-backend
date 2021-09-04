@@ -6,7 +6,7 @@ export default class Transaction {
     }
 
     get = async () => {
-        const transactions = await this.db.execute("SELECT * FROM transactions");
+        const transactions = await this.db.execute("SELECT * FROM transaction");
         return transactions;
     };
 }

@@ -1,12 +1,12 @@
 import express from "express";
-import { Inventory } from "../../services/index.js";
+import { Receipt } from "../../services/index.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const inventory = new Inventory(req.db);
-        const inventoryData = await inventory.get();
-        res.send(inventoryData);
+        const receipt = new Receipt(req.db);
+        const receiptData = await receipt.get();
+        res.send(receiptData);
     } catch (ex) {
         res.status(400).json(ex.message);
     }

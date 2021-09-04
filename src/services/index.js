@@ -1,5 +1,10 @@
 export { default as Item } from "./Item.js";
-export { default as Storage } from "./Storage.js";
+export { default as Order } from "./Order.js";
+export { default as Receipt } from "./Receipt.js";
+export { default as OrderItem } from "./OrderItem.js";
+export { default as Warehouse } from "./Warehouse.js";
 export { default as Customer } from "./Customer.js";
 export { default as Inventory } from "./Inventory.js";
+export { default as ReceiptItem } from "./ReceiptItem.js";
 export { default as Transaction } from "./Transaction.js";
+export { default as InventoryInsufficiency } from "./InventoryInsufficiency.js";
