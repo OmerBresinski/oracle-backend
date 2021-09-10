@@ -8,4 +8,5 @@ export { default as Inventory } from "./Inventory.js";
 export { default as ReceiptItem } from "./ReceiptItem.js";
 export { default as Transaction } from "./Transaction.js";
 export { default as InventoryReport } from "./InventoryReport.js";
+export { default as OpenOrdersReport } from "./OpenOrdersReport.js";
 export { default as InventoryInsufficiency } from "./InventoryInsufficiency.js";

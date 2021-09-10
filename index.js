@@ -17,6 +17,7 @@ app.use("/orderitems", Route.orderItems);
 app.use("/receiptitems", Route.receiptItems);
 app.use("/transactions", Route.transactions);
 app.use("/inventoryreport", Route.inventoryReport);
+app.use("/openordersreport", Route.openOrdersReport);
 app.use("/inventoryinsufficiency", Route.inventoryInsufficiency);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

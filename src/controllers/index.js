@@ -8,4 +8,5 @@ export { default as customers } from "./customers/routing.js";
 export { default as receiptItems } from "./receiptItems/routing.js";
 export { default as transactions } from "./transactions/routing.js";
 export { default as inventoryReport } from "./inventoryReport/routing.js";
+export { default as openOrdersReport } from "./openOrdersReport/routing.js";
 export { default as inventoryInsufficiency } from "./inventoryInsufficiency/routing.js";
