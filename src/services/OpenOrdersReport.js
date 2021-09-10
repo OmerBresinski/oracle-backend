@@ -6,7 +6,7 @@ export default class OpenOrdersReport {
     }
 
     get = async () => {
-        const openOrdersReport = await this.db.execute("SELECT * FROM open_orders_view ");
+        const openOrdersReport = await this.db.execute("SELECT * FROM open_orders_view");
         return openOrdersReport;
     };
 }
