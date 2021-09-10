@@ -9,4 +9,8 @@ export default class Receipt {
         const receipts = await this.db.execute("SELECT * FROM receipt");
         return receipts;
     };
+
+    create = async (orderId) => {
+        this.db.execute("");
+    };
 }
