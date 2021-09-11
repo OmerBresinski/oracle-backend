@@ -6,7 +6,7 @@ export default class InventoryInsufficiency {
     }
 
     get = async () => {
-        const inventoryInsufficiency = await this.db.execute("SELECT * FROM inventory_insufficiency");
+        const inventoryInsufficiency = await this.db.execute("SELECT * FROM exist_shortage_view");
         return inventoryInsufficiency;
     };
 }

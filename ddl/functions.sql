@@ -1,5 +1,3 @@
-
-/**/
 create or replace function get_shortage(amount in number)
     return number
     is
@@ -12,8 +10,6 @@ create or replace function get_shortage(amount in number)
         return(shortage);
 end get_shortage;
 
-/*Use this to create an order with an order id, then use that orderid to create order_row for each item (in the ui)*/
-/**/
 create or replace function create_new_order(p_customer_id in orders.customer_id%type)
 return orders.id%type
 is
@@ -26,7 +22,6 @@ begin
 end create_new_order;
 
 
-/*Convert this function to a procedure (if possible)*/
 create or replace function is_valid_to_create_new_receipt(i_order_id in number)
 return number
 is
@@ -53,8 +48,7 @@ is_valid number;
 begin
     is_valid := is_valid_to_create_new_receipt(i_order_id);
     if is_valid = 0 then
-    /*Change this error to a different type*/
-        raise_application_error(-20001, 'Items are missing, cannot create new receipt');
+        raise_application_error(-1, 'Cannot create a new Receipt, not enough items');
     end if;
    insert into receipt (order_id)
     values (i_order_id)
