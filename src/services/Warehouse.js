@@ -6,7 +6,7 @@ export default class Warehouse {
     }
 
     get = async () => {
-        const warehouse = await this.db.execute("SELECT * FROM warehouse");
+        const warehouse = await this.db.execute("SELECT * FROM storage");
         return warehouse;
     };
 }

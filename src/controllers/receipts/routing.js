@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
         const receiptID = await receipt.create(req.body.orderID);
         res.send({ receiptID });
     } catch (ex) {
+        console.log(ex.message);
         res.status(400).json(ex.message);
     }
 });

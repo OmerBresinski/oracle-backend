@@ -15,7 +15,7 @@ export default class Receipt {
     create = async (orderID) => {
         const createReceiptQuery = `
             DECLARE
-                new_receipt_id NUMBER(10);
+                new_receipt_id NUMBER(32);
             BEGIN
                 :new_receipt_id :=create_new_receipt(${orderID});
             END;
@@ -28,7 +28,7 @@ export default class Receipt {
     cancel = async (receiptID) => {
         const cancelReceiptQuery = `
             DECLARE
-                cancel_receipt_id NUMBER(10);
+                cancel_receipt_id NUMBER(32);
             BEGIN
                 :cancel_receipt_id :=cancel_receipt(${receiptID});
             END;

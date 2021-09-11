@@ -17,7 +17,7 @@ export default class Order {
         const orderItem = new OrderItem(this.db);
         const createOrderQuery = `
             DECLARE
-                new_order_id NUMBER(10);
+                new_order_id NUMBER(32);
             BEGIN
                 :new_order_id :=create_new_order(${customerID});
             END;
@@ -29,7 +29,7 @@ export default class Order {
     };
 
     cancel = async (orderID) => {
-        const execution = await this.db.execute(`UPDATE orders SET ORDER_STATUS = 'cancelled' where ID = ${orderID}`);
+        const execution = await this.db.execute(`UPDATE orders SET STATUS = 'cancelled' where ID = ${orderID}`);
         return !!execution.rowsAffected;
     };
 }
