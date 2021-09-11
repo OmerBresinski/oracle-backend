@@ -22,7 +22,7 @@ CREATE TABLE item (
 CREATE TABLE orders (
     id  NUMBER(32)  DEFAULT global_id.nextval    NOT NULL,
     created_on    DATE    DEFAULT sysdate NOT NULL,
-    status  VARCHAR(5)  CHECK( status IN ('open','close') ),
+    status  VARCHAR(9)  CHECK( status IN ('open','close', 'cancelled') ),
     customer_id  NUMBER(32)   NOT NULL,
 
     CONSTRAINT orders_pk PRIMARY KEY (id),
@@ -74,7 +74,7 @@ CREATE TABLE inventory (
 CREATE TABLE shortage (
     id  NUMBER(32) DEFAULT global_id.nextval NOT NULL,
     item_id NUMBER(32) NOT NULL,
-    quantity NUMBER NOT NULL DEFAULT 0,
+    quantity NUMBER DEFAULT 0 NOT NULL,
     CONSTRAINT shortage_pk PRIMARY KEY (id),
     CONSTRAINT shortage_item_fk
       FOREIGN KEY (item_id)
@@ -93,6 +93,7 @@ CREATE TABLE transaction (
       FOREIGN KEY (storage_id)
       REFERENCES storage(id)
 );
+
 
 
 

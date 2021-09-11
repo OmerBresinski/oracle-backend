@@ -1,33 +1,38 @@
-CREATE OR REPLACE VIEW transaction_view AS
-    SELECT transaction.id, transaction.created_at, transaction.quantity, transaction.item_id, transaction.warehouse_id, transaction.transaction_type
-    warehouse.warehouse_name as warehouse_name, item.item_name
-    FROM transaction
-    LEFT JOIN item on item.id = transaction.item_id
-    LEFT JOIN warehouse on warehouse.id = transaction.warehouse_id;
+create or replace view transaction_view as
+    select transaction.id, transaction.created_on, transaction.quantity, transaction.item_id, transaction.storage_id, transaction.transaction_type, storage.name as storage_name, item.name
+    from transaction
+    left join item on item.id = transaction.item_id
+    left join storage on storage.id = transaction.storage_id;
 
 
-CREATE OR REPLACE VIEW open_orders_view AS
-    SELECT orders.id as order_id, orders.created_at, customers.customer_name as customer_name, COALESCE(count(order_item.id), 0) as different_items, COALESCE(sum(order_item.amount), 0) as total_items
-    FROM orders
-    LEFT JOIN customers on customers.id = orders.customer_id
-    LEFT JOIN order_item on order_item.order_id = orders.id
-    Where orders.order_status = 'open' group by orders.id, orders.created_at, customers.customer_name;
+create or replace view open_orders_view as
+    select orders.id as order_id, orders.created_on, customers.name as customer_name, COALESCE(count(orders_row.id), 0) as different_items, COALESCE(sum(orders_row.quantity), 0) as total_items
+    from orders
+    left join customers on customers.id = orders.customer_id
+    left join orders_row on orders_row.order_id = orders.id
+    where orders.status = 'open' group by orders.id, orders.created_on, customers.name;
 
 
 /*Replace order with receipt*/
-CREATE OR REPLACE VIEW item_sells_to_customer_view AS
-    SELECT customers.id as customer_id, customers.customer_name as customer_name, item.item_name as item,
-    sum(order_item.amount) as total_sales
-    FROM customers
-    INNER JOIN orders on customers.id = orders.customer_id
-    INNER JOIN order_item on order_item.order_id = orders.id
-    INNER JOIN item on order_item.item_id = item.id
-    Where orders.order_status = 'open' group by customers.id, customers.customer_name, item.item_name;
+create or replace view item_sells_to_customer_view as
+    select customers.id as customer_id, customers.name as customer_name, item.name as item,
+    sum(orders_row.quantity) as total_sales
+    from customers
+    inner join orders on customers.id = orders.customer_id
+    inner join orders_row on orders_row.order_id = orders.id
+    inner join item on orders_row.item_id = item.id
+    where orders.status = 'open' group by customers.id, customers.name, item.name;
 
 
-CREATE OR REPLACE VIEW full_inventory_view AS
-    SELECT warehouse.id as warehouse_id, warehouse.warehouse_name as warehouse_name, item.id as item_id,
-    item.item_name as item_name,inventory.quantity as quantity
-    FROM inventory
-    INNER JOIN warehouse on warehouse.id = inventory.warehouse_id
-    INNER JOIN item on inventory.item_id = item.id;
+create or replace view full_inventory_view as
+    select storage.id as storage_id, storage.name as storage_name, item.id as item_id,
+    item.name as item_name,inventory.quantity as quantity
+    from inventory
+    inner join storage on storage.id = inventory.storage_id
+    inner join item on inventory.item_id = item.id;
+    
+    
+create or replace view exist_shortage_view as 
+    select case when sum(quantity) < 10 then 10 - sum(quantity) else sum(quantity) end as exist_quantity, item_id 
+    from (select item_id, quantity from inventory) group by item_id;
+
