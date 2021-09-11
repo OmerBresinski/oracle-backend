@@ -6,7 +6,7 @@ create or replace view transaction_view as
 
 
 create or replace view open_orders_view as
-    select orders.id as order_id, orders.created_on, customers.name as customer_name, COALESCE(count(orders_row.id), 0) as different_items, COALESCE(sum(orders_row.quantity), 0) as total_items
+    select orders.id as order_id, orders.created_on, customers.name as customer_name, COALESCE(sum(orders_row.quantity), 0) as total_items
     from orders
     left join customers on customers.id = orders.customer_id
     left join orders_row on orders_row.order_id = orders.id
