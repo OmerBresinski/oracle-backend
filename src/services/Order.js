@@ -1,3 +1,6 @@
+import oracledb from "oracledb";
+import OrderItem from "../services/OrderItem.js";
+
 export default class Order {
     db;
 
@@ -8,5 +11,20 @@ export default class Order {
     get = async () => {
         const orders = await this.db.execute("SELECT * FROM orders");
         return orders;
+    };
+
+    create = async (customerID, itemIDs = []) => {
+        const orderItem = new OrderItem(this.db);
+        const createOrderQuery = `
+            DECLARE
+                new_order_id NUMBER(10);
+            BEGIN
+                :new_order_id :=create_new_order(${customerID});
+            END;
+        `;
+        const newOrderResult = await this.db.execute(createOrderQuery, { new_order_id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER } });
+        const newOrderID = newOrderResult.outBinds.new_order_id;
+        await orderItem.create(newOrderID, itemIDs);
+        return newOrderID;
     };
 }

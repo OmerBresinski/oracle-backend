@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import * as Controllers from "./src/controllers/index.js";
 import { dbConnection } from "./db.js";
 
@@ -7,6 +8,7 @@ const PORT = 4000;
 const app = express();
 app.use(cors());
 app.use(dbConnection);
+app.use(bodyParser.json());
 app.use("/items", Controllers.items);
 app.use("/orders", Controllers.orders);
 app.use("/receipts", Controllers.receipt);

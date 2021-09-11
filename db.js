@@ -1,5 +1,7 @@
 import oracledb from "oracledb";
 
+oracledb.autoCommit = true;
+
 const ORACLE_DB_CONFIG = {
     user: "SYSTEM",
     password: "admin",
