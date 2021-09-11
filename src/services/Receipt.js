@@ -24,4 +24,19 @@ export default class Receipt {
         const newReceiptID = newReceiptResult.outBinds.new_receipt_id;
         return newReceiptID;
     };
+
+    cancel = async (receiptID) => {
+        const cancelReceiptQuery = `
+            DECLARE
+                cancel_receipt_id NUMBER(10);
+            BEGIN
+                :cancel_receipt_id :=cancel_receipt(${receiptID});
+            END;
+        `;
+        const cancelReceiptResult = await this.db.execute(cancelReceiptQuery, {
+            cancel_receipt_id: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER },
+        });
+        const cancelledReceiptID = cancelReceiptResult.outBinds.cancel_receipt_id;
+        return cancelledReceiptID;
+    };
 }
