@@ -12,4 +12,14 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/", async (req, res) => {
+    try {
+        const receipt = new Receipt(req.db);
+        const receiptID = await receipt.create(req.body.orderID);
+        res.send({ receiptID });
+    } catch (ex) {
+        res.status(400).json(ex.message);
+    }
+});
+
 export default router;
