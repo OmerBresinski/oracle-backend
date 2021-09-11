@@ -27,4 +27,9 @@ export default class Order {
         await orderItem.create(newOrderID, itemIDs);
         return newOrderID;
     };
+
+    cancel = async (orderID) => {
+        const execution = await this.db.execute(`UPDATE orders SET ORDER_STATUS = 'cancelled' where ID = ${orderID}`);
+        return !!execution.rowsAffected;
+    };
 }

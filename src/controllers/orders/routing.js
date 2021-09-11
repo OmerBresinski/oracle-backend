@@ -23,4 +23,15 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.post("/cancel", async (req, res) => {
+    try {
+        const order = new Order(req.db);
+        const success = await order.cancel(req.body.orderID);
+        res.send({ success });
+    } catch (ex) {
+        console.log(ex);
+        res.status(400).json(ex.message);
+    }
+});
+
 export default router;
